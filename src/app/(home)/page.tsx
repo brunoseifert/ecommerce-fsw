@@ -1,6 +1,5 @@
-'use client';
-
 import Image from 'next/image';
+import Categories from './components/categories';
 
 export default function Home() {
   return (
@@ -13,6 +12,9 @@ export default function Home() {
         sizes="100vw"
         alt="Até 55% de desconto!"
       />
+      <div className="mt-8">
+        <Categories />
+      </div>
     </div>
   );
 }
