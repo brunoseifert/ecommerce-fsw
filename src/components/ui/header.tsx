@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import {
   HomeIcon,
@@ -8,14 +8,21 @@ import {
   MenuIcon,
   PercentIcon,
   ShoppingCartIcon,
-} from 'lucide-react';
-import { Button } from './button';
-import { Card } from './card';
-import { Sheet, SheetContent, SheetHeader, SheetTrigger } from './sheet';
-import { signOut, useSession } from 'next-auth/react';
-import { Avatar, AvatarImage } from './avatar';
-import { AvatarFallback } from '@radix-ui/react-avatar';
-import { Separator } from './separator';
+} from "lucide-react";
+import { Button } from "./button";
+import { Card } from "./card";
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetHeader,
+  SheetTrigger,
+} from "./sheet";
+import { signOut, useSession } from "next-auth/react";
+import { Avatar, AvatarImage } from "./avatar";
+import { AvatarFallback } from "@radix-ui/react-avatar";
+import { Separator } from "./separator";
+import Link from "next/link";
 
 const Header = () => {
   const { status, data } = useSession();
@@ -38,7 +45,7 @@ const Header = () => {
             Menu
           </SheetHeader>
 
-          {status === 'authenticated' && data?.user && (
+          {status === "authenticated" && data?.user && (
             <div className="flex flex-col">
               <div className="flex items-center gap-2 py-4">
                 <Avatar>
@@ -60,10 +67,10 @@ const Header = () => {
           )}
 
           <div className="mt-4 flex flex-col gap-2">
-            {status === 'unauthenticated' && (
+            {status === "unauthenticated" && (
               <Button
                 onClick={() => {
-                  window.location.href = '/login';
+                  window.location.href = "/login";
                 }}
                 variant="outline"
                 className="w-full justify-start gap-2"
@@ -73,7 +80,7 @@ const Header = () => {
               </Button>
             )}
 
-            {status === 'authenticated' && (
+            {status === "authenticated" && (
               <Button
                 onClick={handleLogoutClick}
                 variant="outline"
@@ -86,7 +93,7 @@ const Header = () => {
 
             <Button
               onClick={() => {
-                window.location.href = '/';
+                window.location.href = "/";
               }}
               variant="outline"
               className="w-full justify-start gap-2"
@@ -100,10 +107,17 @@ const Header = () => {
               Ofertas
             </Button>
 
-            <Button variant="outline" className="w-full justify-start gap-2">
-              <ListOrderedIcon size={16} />
-              Catálogo
-            </Button>
+            <SheetClose asChild>
+              <Link href="/catalog">
+                <Button
+                  variant="outline"
+                  className="w-full justify-start gap-2"
+                >
+                  <ListOrderedIcon size={16} />
+                  Catálogo
+                </Button>
+              </Link>
+            </SheetClose>
           </div>
         </SheetContent>
       </Sheet>
