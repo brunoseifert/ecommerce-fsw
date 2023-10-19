@@ -1,16 +1,16 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import { cn } from '@/lib/utils';
-import { Label } from '@/components/ui/label';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import { Icons } from '@/components/icons';
-import { signIn } from 'next-auth/react';
-import { useToast } from '@/components/ui/use-toast';
-import { ToastAction } from '@/components/ui/toast';
-import { useRouter } from 'next/navigation';
-import Link from 'next/link';
+import React, { useState } from "react";
+import { cn } from "@/lib/utils";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Icons } from "@/components/icons";
+import { signIn } from "next-auth/react";
+import { useToast } from "@/components/ui/use-toast";
+import { ToastAction } from "@/components/ui/toast";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
@@ -20,7 +20,7 @@ interface IUser {
 }
 
 export function UserLoginForm({ className, ...props }: UserAuthFormProps) {
-  const [data, setData] = useState<IUser>({ email: '', password: '' });
+  const [data, setData] = useState<IUser>({ email: "", password: "" });
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -32,30 +32,30 @@ export function UserLoginForm({ className, ...props }: UserAuthFormProps) {
     event.preventDefault();
     setIsLoading(true);
 
-    const res = await signIn<'credentials'>('credentials', {
+    const res = await signIn<"credentials">("credentials", {
       ...data,
       redirect: false,
     });
 
     if (res?.error) {
       toast({
-        title: 'Erro ao entrar',
+        title: "Erro ao entrar",
         description: res.error,
-        variant: 'destructive',
+        variant: "destructive",
         action: (
           <ToastAction altText="Tente novamente">Tente novamente</ToastAction>
         ),
       });
     } else {
       toast({
-        title: 'Sucesso',
-        description: 'Você entrou com sucesso',
+        title: "Sucesso",
+        description: "Você entrou com sucesso",
         action: <ToastAction altText="OK">OK</ToastAction>,
       });
-      router.push('/');
+      router.push("/");
     }
 
-    setData({ email: '', password: '' });
+    setData({ email: "", password: "" });
     setIsLoading(false);
   }
 
@@ -67,13 +67,13 @@ export function UserLoginForm({ className, ...props }: UserAuthFormProps) {
   };
 
   return (
-    <div className={cn('grid gap-6 m-10', className)} {...props}>
+    <div className={cn("m-10 grid gap-6", className)} {...props}>
       <form onSubmit={onSubmit}>
         <div className="grid gap-2">
           <div className="grid gap-1">
             <Input
               id="email"
-              placeholder="name@example.com"
+              placeholder="Email"
               type="email"
               autoCapitalize="none"
               autoComplete="email"
@@ -90,7 +90,7 @@ export function UserLoginForm({ className, ...props }: UserAuthFormProps) {
             </Label>
             <Input
               id="password"
-              placeholder="senha"
+              placeholder="Senha"
               type="password"
               autoCapitalize="none"
               autoCorrect="off"
@@ -120,7 +120,7 @@ export function UserLoginForm({ className, ...props }: UserAuthFormProps) {
         </div>
       </div>
       <Button
-        onClick={() => signIn('google', { callbackUrl: '/' })}
+        onClick={() => signIn("google", { callbackUrl: "/" })}
         variant="outline"
         type="button"
         disabled={isLoading}
@@ -129,7 +129,7 @@ export function UserLoginForm({ className, ...props }: UserAuthFormProps) {
           <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
         ) : (
           <Icons.google className="mr-2 h-4 w-4" />
-        )}{' '}
+        )}{" "}
         Google
       </Button>
     </div>

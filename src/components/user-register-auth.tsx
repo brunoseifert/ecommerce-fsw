@@ -1,14 +1,14 @@
-'use client';
+"use client";
 
-import { cn } from '@/lib/utils';
-import React, { useState } from 'react';
-import { Label } from '@/components/ui/label';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import { Icons } from '@/components/icons';
-import { useToast } from '@/components/ui/use-toast';
-import { ToastAction } from '@/components/ui/toast';
-import { useRouter } from 'next/navigation';
+import { cn } from "@/lib/utils";
+import React, { useState } from "react";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Icons } from "@/components/icons";
+import { useToast } from "@/components/ui/use-toast";
+import { ToastAction } from "@/components/ui/toast";
+import { useRouter } from "next/navigation";
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
@@ -16,6 +16,7 @@ interface IUser {
   name: string;
   email: string;
   password: string;
+  passwordConfirmation: string;
 }
 
 export function UserRegisterForm({ className, ...props }: UserAuthFormProps) {
@@ -24,9 +25,10 @@ export function UserRegisterForm({ className, ...props }: UserAuthFormProps) {
   const router = useRouter();
 
   const [data, setData] = useState<IUser>({
-    name: '',
-    email: '',
-    password: '',
+    name: "",
+    email: "",
+    password: "",
+    passwordConfirmation: "",
   });
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -35,40 +37,54 @@ export function UserRegisterForm({ className, ...props }: UserAuthFormProps) {
     event.preventDefault();
     setIsLoading(true);
 
-    const request = await fetch('/api/users', {
-      method: 'POST',
+    const request = await fetch("/api/users", {
+      method: "POST",
       headers: {
-        'Content-type': 'applicaition/json',
+        "Content-type": "applicaition/json",
       },
       body: JSON.stringify(data),
     });
 
     const response = await request.json();
 
-    console.log('USER REGISTER FORM', response);
+    console.log("USER REGISTER FORM", response);
 
     if (!request.ok) {
       toast({
-        title: 'Erro ao registrar',
+        title: "Erro ao registrar",
         description: response.error,
-        variant: 'destructive',
+        variant: "destructive",
         action: (
           <ToastAction altText="Tente novamente">Tente novamente</ToastAction>
         ),
       });
     } else {
       toast({
-        title: 'Registrado com sucesso',
-        description: 'Use suas credenciais para entrar',
+        title: "Registrado com sucesso",
+        description: "Use suas credenciais para entrar",
       });
       console.log(response);
-      router.push('/login');
+      router.push("/login");
+    }
+
+    if (data.password !== data.passwordConfirmation) {
+      toast({
+        title: "Erro ao registrar",
+        description: "A senha e a confirmação de senha não coincidem.",
+        variant: "destructive",
+        action: (
+          <ToastAction altText="Tente novamente">Tente novamente</ToastAction>
+        ),
+      });
+      setIsLoading(false);
+      return;
     }
 
     setData({
-      name: '',
-      email: '',
-      password: '',
+      name: "",
+      email: "",
+      password: "",
+      passwordConfirmation: "",
     });
     setIsLoading(false);
   }
@@ -78,9 +94,8 @@ export function UserRegisterForm({ className, ...props }: UserAuthFormProps) {
       return { ...prev, [e.target.name]: e.target.value };
     });
   };
-
   return (
-    <div className={cn('grid gap-6 m-10', className)} {...props}>
+    <div className={cn("m-10 grid gap-6", className)} {...props}>
       {/* {JSON.stringify(data)} */}
       <form onSubmit={onSubmit}>
         <div className="grid gap-2">
@@ -106,7 +121,7 @@ export function UserRegisterForm({ className, ...props }: UserAuthFormProps) {
             </Label>
             <Input
               id="email"
-              placeholder="nome@exemplo.com"
+              placeholder="Email"
               type="email"
               autoCapitalize="none"
               autoComplete="email"
@@ -133,6 +148,23 @@ export function UserRegisterForm({ className, ...props }: UserAuthFormProps) {
               onChange={handleChange}
             />
           </div>
+          <div className="grid gap-1">
+            <Label className="sr-only" htmlFor="passwordConfirmation">
+              Confirmar Senha
+            </Label>
+            <Input
+              id="passwordConfirmation"
+              placeholder="Confirmar Senha"
+              type="password"
+              autoCapitalize="none"
+              autoCorrect="off"
+              disabled={isLoading}
+              name="passwordConfirmation"
+              value={data.passwordConfirmation}
+              onChange={handleChange}
+            />
+          </div>
+
           <Button disabled={isLoading}>
             {isLoading && (
               <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
