@@ -1,6 +1,7 @@
 "use client";
 
 import {
+  Car,
   HomeIcon,
   ListOrderedIcon,
   LogInIcon,
@@ -23,6 +24,8 @@ import { Avatar, AvatarImage } from "./avatar";
 import { AvatarFallback } from "@radix-ui/react-avatar";
 import { Separator } from "./separator";
 import Link from "next/link";
+import { Badge } from "./badge";
+import Cart from "./cart";
 
 const Header = () => {
   const { status, data } = useSession();
@@ -126,9 +129,19 @@ const Header = () => {
         <span className="text-primary">FSW</span> Store
       </h1>
 
-      <Button size="icon" variant="outline">
-        <ShoppingCartIcon />
-      </Button>
+      <Sheet>
+        <SheetTrigger asChild>
+          <Button size="icon" variant="outline">
+            <ShoppingCartIcon />
+          </Button>
+        </SheetTrigger>
+
+        <SheetContent side="right">
+          <SheetHeader className="flex-row items-center gap-2 text-left ">
+            <Cart />
+          </SheetHeader>
+        </SheetContent>
+      </Sheet>
     </Card>
   );
 };
