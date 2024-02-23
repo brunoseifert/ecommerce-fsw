@@ -2,6 +2,7 @@ import { CartContext } from "@/providers/cart";
 import { useContext } from "react";
 import { Badge } from "./badge";
 import { ShoppingCartIcon } from "lucide-react";
+import CartItem from "./cart-item";
 
 const Cart = () => {
   const { products } = useContext(CartContext);
@@ -15,10 +16,7 @@ const Cart = () => {
         catalágo
       </Badge>
       {products.map((product) => (
-        <div key={product.id}>
-          <p>{product.name}</p>
-          <p>{product.price}</p>
-        </div>
+        <CartItem key={product.id} product={product} />
       ))}
     </div>
   );
