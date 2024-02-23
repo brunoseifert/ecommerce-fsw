@@ -7,7 +7,7 @@ import CartItem from "./cart-item";
 const Cart = () => {
   const { products } = useContext(CartContext);
   return (
-    <div>
+    <div className="flex flex-col gap-4">
       <Badge
         className="w-fit gap-1 border-r-2 border-primary px-3 py-1 text-sm font-semibold uppercase"
         variant="outline"
