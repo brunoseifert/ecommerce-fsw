@@ -43,37 +43,39 @@ const Cart = () => {
           </div>
         </ScrollArea>
       </div>
-      <div className="flex flex-col gap-3">
-        <Separator />
+      {products.length > 0 && (
+        <div className="flex flex-col gap-3">
+          <Separator />
 
-        <div className="flex items-center justify-between text-xs">
-          <p>Subtotal</p>
-          <p>R$ {subtotal.toFixed(2)}</p>
-        </div>
-        <Separator />
+          <div className="flex items-center justify-between text-xs">
+            <p>Subtotal</p>
+            <p>R$ {subtotal.toFixed(2)}</p>
+          </div>
+          <Separator />
 
-        <div className="flex items-center justify-between text-xs">
-          <p className="text-xs font-semibold">Entrega</p>
-          <p className="text-xs">Grátis</p>
-        </div>
-        <Separator />
-        <div className="flex items-center justify-between text-xs">
-          <p>Desconto</p>
-          <p>-R$ {totalDiscount.toFixed(2)}</p>
-        </div>
-        <Separator />
+          <div className="flex items-center justify-between text-xs">
+            <p className="text-xs font-semibold">Entrega</p>
+            <p className="text-xs">Grátis</p>
+          </div>
+          <Separator />
+          <div className="flex items-center justify-between text-xs">
+            <p>Desconto</p>
+            <p>-R$ {totalDiscount.toFixed(2)}</p>
+          </div>
+          <Separator />
 
-        <div className="flex items-center justify-between text-xs">
-          <p>Total</p>
-          <p>R$ {total.toFixed(2)}</p>
+          <div className="flex items-center justify-between text-xs">
+            <p>Total</p>
+            <p>R$ {total.toFixed(2)}</p>
+          </div>
+          <Button
+            className="text-xs font-semibold uppercase"
+            onClick={handleFinishPurchaseClick}
+          >
+            finalizar compra
+          </Button>
         </div>
-        <Button
-          className="text-xs font-semibold uppercase"
-          onClick={handleFinishPurchaseClick}
-        >
-          finalizar compra
-        </Button>
-      </div>
+      )}
     </div>
   );
 };
