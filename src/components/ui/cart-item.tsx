@@ -28,10 +28,8 @@ const CartItem = ({ product }: CartItemProps) => {
   };
 
   return (
-    <div className="flex items-center justify-between space-x-3">
+    <div className="flex items-center justify-between">
       <div className="flex items-center gap-4">
-        {/* PARTE DIREITA (FOTO E NOME) */}
-
         <div className="flex h-[77px] w-[77px] items-center justify-center rounded-lg bg-accent lg:h-[120px] lg:w-[120px]">
           <Image
             src={product.imageUrls[0]}

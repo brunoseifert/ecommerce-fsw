@@ -70,45 +70,57 @@ const Header = () => {
           )}
 
           <div className="mt-4 flex flex-col gap-2">
-            {status === "unauthenticated" && (
+            <SheetClose>
+              {" "}
+              {status === "unauthenticated" && (
+                <Button
+                  onClick={() => {
+                    window.location.href = "/login";
+                  }}
+                  variant="outline"
+                  className="w-full justify-start gap-2"
+                >
+                  <LogInIcon size={16} />
+                  Fazer Login
+                </Button>
+              )}
+              {status === "authenticated" && (
+                <Button
+                  onClick={handleLogoutClick}
+                  variant="outline"
+                  className="w-full justify-start gap-2"
+                >
+                  <LogOutIcon size={16} />
+                  Fazer Logout
+                </Button>
+              )}
+            </SheetClose>
+
+            <SheetClose>
+              {" "}
               <Button
                 onClick={() => {
-                  window.location.href = "/login";
+                  window.location.href = "/";
                 }}
                 variant="outline"
                 className="w-full justify-start gap-2"
               >
-                <LogInIcon size={16} />
-                Fazer Login
+                <HomeIcon size={16} />
+                Início
               </Button>
-            )}
+            </SheetClose>
 
-            {status === "authenticated" && (
-              <Button
-                onClick={handleLogoutClick}
-                variant="outline"
-                className="w-full justify-start gap-2"
-              >
-                <LogOutIcon size={16} />
-                Fazer Logout
-              </Button>
-            )}
-
-            <Button
-              onClick={() => {
-                window.location.href = "/";
-              }}
-              variant="outline"
-              className="w-full justify-start gap-2"
-            >
-              <HomeIcon size={16} />
-              Início
-            </Button>
-
-            <Button variant="outline" className="w-full justify-start gap-2">
-              <PercentIcon size={16} />
-              Ofertas
-            </Button>
+            <SheetClose asChild>
+              <Link href="/deals">
+                <Button
+                  variant="outline"
+                  className="w-full justify-start gap-2"
+                >
+                  <PercentIcon size={16} />
+                  Ofertas
+                </Button>
+              </Link>
+            </SheetClose>
 
             <SheetClose asChild>
               <Link href="/catalog">
@@ -125,9 +137,16 @@ const Header = () => {
         </SheetContent>
       </Sheet>
 
-      <h1 className="text-lg font-semibold">
-        <span className="text-primary">FSW</span> Store
-      </h1>
+      <Sheet>
+        <SheetClose asChild>
+          <Link href="/">
+            {" "}
+            <h1 className="text-lg font-semibold">
+              <span className="text-primary">FSW</span> Store
+            </h1>
+          </Link>
+        </SheetClose>
+      </Sheet>
 
       <Sheet>
         <SheetTrigger asChild>
