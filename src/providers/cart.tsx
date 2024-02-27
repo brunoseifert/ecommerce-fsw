@@ -35,22 +35,22 @@ export const CartContext = createContext<ICartContext>({
   removeProductFromCart: () => {},
 });
 
+const PRODUCTS_STORAGE_KEY = "@cart/products";
+
 const CartProvider = ({ children }: { children: ReactNode }) => {
   const [products, setProducts] = useState<CartProduct[]>([]);
 
-  console.log(products);
-
   useEffect(() => {
-    setProducts(
-      JSON.parse(localStorage.getItem("@ecommerce-fsw/cart-products") || "[]"),
-    );
+    const localProductsCart = localStorage.getItem(PRODUCTS_STORAGE_KEY);
+    if (localProductsCart) {
+      setProducts(JSON.parse(localProductsCart));
+    }
   }, []);
 
   useEffect(() => {
-    localStorage.setItem(
-      "@ecommerce-fsw/cart-products",
-      JSON.stringify(products),
-    );
+    setTimeout(() => {
+      localStorage.setItem(PRODUCTS_STORAGE_KEY, JSON.stringify(products));
+    }, 0);
   }, [products]);
 
   // Total sem descontos
