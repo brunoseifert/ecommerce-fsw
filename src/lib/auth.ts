@@ -46,17 +46,22 @@ export const authOptions: AuthOptions = {
       },
     }),
   ],
+
   callbacks: {
-    async session({ session, token, user }) {
-      session.user = { ...session.user, id: user.id } as {
-        id: string;
-        name: string;
-        email: string;
-      };
+    jwt({ token, account, user }) {
+      if (account) {
+        token.accessToken = account.access_token;
+        token.id = user?.id;
+      }
+      return token;
+    },
+    session({ session, token }) {
+      session.user.id = token.id;
 
       return session;
     },
   },
+
   session: {
     strategy: "jwt",
   },

@@ -1,15 +1,16 @@
-import { CartContext } from "@/providers/cart";
-import { useContext } from "react";
-import { Badge } from "./badge";
 import { ShoppingCartIcon } from "lucide-react";
+import { Badge } from "./badge";
+import { useContext } from "react";
+import { CartContext } from "@/providers/cart";
 import CartItem from "./cart-item";
+import { computeProductTotalPrice } from "@/helpers/product";
 import { Separator } from "./separator";
 import { ScrollArea } from "./scroll-area";
 import { Button } from "./button";
 import { createCheckout } from "@/actions/checkout";
 import { loadStripe } from "@stripe/stripe-js";
-import { useSession } from "next-auth/react";
 import { createOrder } from "@/actions/order";
+import { useSession } from "next-auth/react";
 
 const Cart = () => {
   const { data } = useSession();
@@ -21,14 +22,19 @@ const Cart = () => {
       return;
     }
 
-    await createOrder(products, (data?.user as any).id);
+    const order = await createOrder(products, (data?.user as any).id);
 
-    const checkout = await createCheckout(products);
+    const checkout = await createCheckout(products, order.id);
 
     const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY);
 
-    stripe?.redirectToCheckout({ sessionId: checkout.id });
+    // Criar pedido no banco
+
+    stripe?.redirectToCheckout({
+      sessionId: checkout.id,
+    });
   };
+
   return (
     <div className="flex h-full w-full flex-col gap-8">
       <Badge
