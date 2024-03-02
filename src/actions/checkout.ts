@@ -19,17 +19,22 @@ export const createCheckout = async (
     metadata: {
       orderId,
     },
-    line_items: products.map((product) => ({
-      price_data: {
-        currency: "brl",
-        product_data: {
-          name: product.name,
-          images: product.imageUrls,
+    line_items: products.map((product) => {
+      return {
+        price_data: {
+          currency: "brl",
+          product_data: {
+            name: product.name,
+            description: product.description,
+            images: product.imageUrls,
+          },
+          unit_amount: product.totalPrice * 100,
         },
-        unit_amount: product.totalPrice * 100,
-      },
-      quantity: product.quantity,
-    })),
+        quantity: product.quantity,
+      };
+    }),
   });
+
+  // RETORNAR O CHECKOUT
   return checkout;
 };
