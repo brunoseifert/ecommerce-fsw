@@ -10,6 +10,7 @@ import { format } from "date-fns";
 import OrderProductItem from "./order-produtcs";
 import { Separator } from "@/components/ui/separator";
 import { useMemo } from "react";
+import { getOrderStatus } from "../helpers/status";
 
 interface OrderItemProps {
   order: Prisma.OrderGetPayload<{
@@ -64,7 +65,9 @@ const OrderItem = ({ order }: OrderItemProps) => {
               <div className="flex items-center justify-between">
                 <div className=" font-semibold">
                   <p>Status</p>
-                  <p className="text-[#8162FF]">{order.status}</p>
+                  <p className="text-[#8162FF]">
+                    {getOrderStatus(order.status)}
+                  </p>
                 </div>
 
                 <div>
@@ -90,21 +93,21 @@ const OrderItem = ({ order }: OrderItemProps) => {
             <div className="flex w-full flex-col">
               <Separator />
 
-              <div className="flex w-full justify-between py-3">
+              <div className="flex w-full justify-between py-3 text-xs">
                 <p>Subtotal</p>
                 <p>R$ {subtotal.toFixed(2)}</p>
               </div>
               <Separator />
 
-              <div className="flex w-full justify-between py-3">
+              <div className="flex w-full justify-between py-3 text-xs">
                 <p>Entrega</p>
                 <p>Grátis</p>
               </div>
               <Separator />
 
-              <div className="flex w-full justify-between py-3">
+              <div className="flex w-full justify-between py-3 text-xs">
                 <p>Descontos</p>
-                <p>R$ {desconto.toFixed(2)}</p>
+                <p>-R$ {desconto.toFixed(2)}</p>
               </div>
               <Separator />
 
