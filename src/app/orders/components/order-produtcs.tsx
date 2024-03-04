@@ -14,8 +14,8 @@ const OrderProductItem = ({ orderProducts }: OrderProductItemProps) => {
   const productWithTotalPrice = computeProductTotalPrice(orderProducts.product);
 
   return (
-    <div className="flex w-full items-center gap-4">
-      <div className=" flex h-[77px] w-[77px] items-center justify-center rounded-lg bg-accent">
+    <div className="flex w-full items-center gap-4 py-2">
+      <div className=" flex h-[77px] w-[100px] items-center justify-center rounded-lg bg-accent">
         <Image
           src={orderProducts.product.imageUrls[0]}
           alt={orderProducts.product.name}
