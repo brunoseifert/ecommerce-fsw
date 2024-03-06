@@ -43,7 +43,7 @@ async function OrderPage() {
     );
   }
   return (
-    <div className="container p-5">
+    <div className="p-5 lg:container">
       <Badge
         className="w-fit gap-1 border-r-2 border-primary px-3 py-1 text-sm font-semibold uppercase"
         variant="outline"

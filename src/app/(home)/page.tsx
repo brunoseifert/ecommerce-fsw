@@ -45,7 +45,7 @@ export default async function Home() {
           className="hidden w-full lg:mx-auto lg:block"
         />
       </div>
-      <div className="container flex flex-col gap-8 py-8 lg:gap-12">
+      <div className="flex flex-col gap-8 py-8 lg:container lg:gap-12">
         <div className="px-5">
           <Categories />
         </div>

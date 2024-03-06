@@ -35,7 +35,7 @@ const ProductDetailsPage = async ({
   }
 
   return (
-    <div className="container flex flex-col gap-8 pb-8">
+    <div className="flex flex-col gap-8 pb-8 lg:container">
       <div className="lg: flex flex-col gap-8 pb-8 lg:mt-10 lg:grid lg:grid-cols-2 ">
         <div className=" lg:mt-1 lg:rounded-md lg:bg-accent">
           <ProductImagesProps
