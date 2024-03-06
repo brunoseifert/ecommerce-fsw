@@ -52,32 +52,55 @@ const OrderItem = ({ order }: OrderItemProps) => {
       <Accordion type="single" className="w-full" collapsible>
         <AccordionItem value={order.id}>
           <AccordionTrigger>
-            <div className="flex flex-col gap-1 text-left">
-              <h1>Pedido com {order.orderProducts.length} produto(s)</h1>
-              <span className="text-xs opacity-60">
-                Pedido feito em {format(order.createdAt, "d/MM/y")}
-              </span>
+            <div className="flex w-full text-left">
+              <div className="flex flex-1 flex-col gap-1 text-left">
+                <p className="text-sm font-bold uppercase lg:text-base">
+                  Pedido com {order.orderProducts.length} produto(s)
+                </p>
+                <span className="text-xs opacity-60">
+                  Feito em {format(order.createdAt, "d/MM/y 'às' HH:mm")}
+                </span>
+              </div>
+
+              <div className="hidden flex-1 font-bold lg:block">
+                <p className="text-xs lg:text-sm">Status</p>
+                <p className="text-xs text-[#8162FF] lg:text-sm">
+                  {getOrderStatus(order.status)}
+                </p>
+              </div>
+
+              <div className="hidden flex-1 lg:block">
+                <p className="text-xs font-bold lg:text-sm ">Data</p>
+                <p className="text-xs opacity-60 lg:text-sm">
+                  {format(order.createdAt, "d/MM/y")}
+                </p>
+              </div>
+
+              <div className="hidden flex-1 lg:block">
+                <p className="text-xs font-bold lg:text-sm">Pagamento</p>
+                <p className="text-xs opacity-60 lg:text-sm">Cartão</p>
+              </div>
             </div>
           </AccordionTrigger>
 
           <AccordionContent>
             <div className="flex flex-col">
               <div className="flex items-center justify-between">
-                <div className=" font-semibold">
+                <div className=" font-semibold lg:hidden">
                   <p>Status</p>
                   <p className="text-[#8162FF]">
                     {getOrderStatus(order.status)}
                   </p>
                 </div>
 
-                <div>
+                <div className="lg:hidden">
                   <p className="font-bold">Data</p>
                   <p className="opacity-70">
                     {format(order.createdAt, "d/MM/y")}
                   </p>
                 </div>
 
-                <div>
+                <div className="lg:hidden">
                   <p className="font-bold">Pagamento</p>
                   <p className="opacity-70">Cartão</p>
                 </div>

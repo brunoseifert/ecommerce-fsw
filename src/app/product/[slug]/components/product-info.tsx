@@ -34,9 +34,13 @@ const ProductInfo = ({ product }: ProductInfoProps) => {
   };
   return (
     <div className="flex flex-col p-4">
-      <h2 className="text-lg">{product.name}</h2>
+      <h2 className="text-lg lg:mb-4 lg:text-[25px] lg:font-normal">
+        {product.name}
+      </h2>
       <div className="flex items-center gap-2">
-        <h1>R$ {product.totalPrice.toFixed(2)}</h1>
+        <h1 className="lg:text-[28px] lg:font-bold">
+          R$ {product.totalPrice.toFixed(2)}
+        </h1>
         {product.discountPercentage > 0 && (
           <Badge className="px-2 py-[2px] ">
             <ArrowDownIcon size={14} /> {product.discountPercentage}%
@@ -55,7 +59,7 @@ const ProductInfo = ({ product }: ProductInfoProps) => {
           size="icon"
           variant="outline"
           onClick={handleDecreaseQuantity}
-          className="border-2"
+          className="border-2 lg:border-2 lg:border-[#2A2A2A] lg:bg-transparent"
         >
           <ArrowLeftIcon size={16} />
         </Button>
@@ -64,21 +68,23 @@ const ProductInfo = ({ product }: ProductInfoProps) => {
           size="icon"
           variant="outline"
           onClick={handleIncreaseQuantity}
-          className="border-2"
+          className="border-2 lg:border-2 lg:border-[#2A2A2A] lg:bg-transparent"
         >
           <ArrowRightIcon size={16} />
         </Button>
       </div>
       <div className="mb-5">
         <h3 className="text-base font-bold ">Descrição</h3>
-        <p className="mt-2 text-sm font-light">{product.description}</p>
+        <p className="mt-2 text-sm font-light text-gray-300">
+          {product.description}
+        </p>
       </div>
 
       <Button className="mt-auto" onClick={handleAddToCartClick}>
         Adicionar ao carrinho
       </Button>
 
-      <div className="mt-5 flex items-center justify-between rounded-lg bg-accent px-5 py-2">
+      <div className="mt-5 flex items-center justify-between rounded-lg bg-accent px-5 py-2 lg:bg-[#2A2A2A] ">
         <div className="flex items-center gap-3">
           <TruckIcon size={24} />
           <div className=" flex flex-col">

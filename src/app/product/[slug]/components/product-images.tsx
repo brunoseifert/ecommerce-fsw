@@ -17,7 +17,7 @@ const ProductImages = ({ imageUrls, name }: ProductImagesProps) => {
 
   return (
     <div className="flex flex-col">
-      <div className="flex h-[380px] w-full items-center justify-center bg-accent">
+      <div className="flex h-[380px] w-full items-center justify-center bg-accent lg:rounded-md">
         <Image
           src={currentImage}
           alt={name}

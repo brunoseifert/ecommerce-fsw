@@ -1,12 +1,12 @@
 import { cn } from "@/lib/utils";
 import Image, { ImageProps } from "next/image";
 
-const PromoBanner = ({ alt, className, ...props }: ImageProps) => {
+const PromoBannerDesktop = ({ alt, className, ...props }: ImageProps) => {
   return (
     <Image
       height={0}
       width={0}
-      className={cn("h-auto w-full px-5", className)}
+      className={cn("h-auto w-full", className)}
       sizes="100vw"
       alt={alt}
       {...props}
@@ -14,4 +14,4 @@ const PromoBanner = ({ alt, className, ...props }: ImageProps) => {
   );
 };
 
-export default PromoBanner;
+export default PromoBannerDesktop;

@@ -31,8 +31,19 @@ async function OrderPage() {
       },
     },
   });
+
+  if (!orders.length) {
+    return (
+      <div className="flex h-full flex-col items-center justify-center gap-2 p-5">
+        <h2 className="font-bold">Nenhum pedido encontrado!</h2>
+        <p className="text-sm opacity-60">
+          Faça uma compra para ver seus pedidos
+        </p>
+      </div>
+    );
+  }
   return (
-    <div className="p-5">
+    <div className="container p-5">
       <Badge
         className="w-fit gap-1 border-r-2 border-primary px-3 py-1 text-sm font-semibold uppercase"
         variant="outline"
